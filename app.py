@@ -32,7 +32,7 @@ st.markdown("<h1 style='text-align: center; color: #007bff;'>✨ CODE GPT ✨</h
 st.markdown("#### 🚀 Empower Your Coding with AI | Debug • Explain • Optimize")
 
 # 🎯 Sidebar for Feature Selection
-st.sidebar.image("E:\Hackathon\Logo.webp", width=250)
+st.sidebar.image("E:/Hackathon/Logo.webp", width=250)
 st.sidebar.markdown("## Choose Features")
 
 # 📝 User Input for Code
