@@ -62,7 +62,7 @@ if "Convert Handwritten Code" in features_selected:
 
 # 📌 Function to Call Google AI API (Gemini)
 def query_gemini(prompt):
-    model = genai.GenerativeModel("gemini-1.5-pro")  # Using Google's AI Model
+    model = genai.GenerativeModel("gemini-1.5-flash")  # Using Google's AI Model
     response = model.generate_content(prompt)
     return response.text
 def reply(input,image,prompt):
