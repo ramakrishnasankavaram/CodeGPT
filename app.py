@@ -143,7 +143,7 @@ if st.button("✨ Process with AI"):
             if feature == "Convert Handwritten Code" and uploaded_file:
                 image1 = Image.open(uploaded_file)
                 st.image(image1)
-                prompt="i provide you a image contaning hand written code . you need to analyze the image and generate the handwritten code as noraml digital code and provide the explantion for the code and there any errors fix it otherswise leave"
+                prompt="i provide you a image contaning hand written code . you need to analyze the image and generate the handwritten code as noraml digital code and provide the explantion for the code and there any errors fix it otherswise leave and if no text found in image give as no text found"
 
                 # 🛠 Extract text from image using Pytesseract with better accuracy settings
                 extracted_text = reply("",image1,prompt)
