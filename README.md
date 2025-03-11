@@ -33,7 +33,7 @@ CodeGPT leverages advanced NLP models to analyze code, predict the next possible
 
 ## 💡 Technologies Used
 - Python 🐍
-- OpenAI GPT models 🤖
+- Google Gemini models 🤖
 - Streamlit (for UI) 🎨
 
 ## 🤝 Contributing
