@@ -1,6 +1,5 @@
 # CodeGPT 🤖
-An intelligent AI-powered coding assistant that helps developers write better code with advanced features like bug detection, code explanation, optimization, and multi-language support.
-
+An intelligent AI-powered coding assistant that helps developers write better code with advanced features like bug detection, code explanation, optimization, handwritten code recognition, and multi-language support. Simply upload images of handwritten code to get clean, digitized output, or paste your existing code for comprehensive analysis and improvements. CodeGPT supports various programming languages and provides instant, actionable insights to enhance your coding workflow.
 
 ## 🚀 Live Demo
 Experience CodeGPT in action 👉 [CodeGPT](https://codegpt31.streamlit.app/)
@@ -55,13 +54,6 @@ CodeGPT/
   
 
 ## ⚙️ Setup Instructions
-
-### Prerequisites
-
-- Python 3.8 or higher
-- Google Gemini API key
-
-### ⚙️ Setup Instructions/Local Installation
 
 Follow the steps below to set up and run CodeGPT locally:
 
