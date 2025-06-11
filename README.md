@@ -44,7 +44,7 @@ CodeGPT/
 ```
 
 ## Our Homepage Demo
-![CodeGPT Screenshot](demohomepage.png)
+![CodeGPT Screenshot](codegpt_home.png)
 
 
 ## 🌐 Deployment
