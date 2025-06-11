@@ -2072,43 +2072,59 @@ def save_chat_history(user_id, code_input, features_used, ai_output):
 
 
 
-from PIL import Image
 
 def process_code(code_input, features_selected, uploaded_file=None):
     results = []
     
     if not features_selected:
-        # Default analysis
-        prompt = f"""
-        Make the heading as *Finding & Fixing Bugs*
-        Analyze the following code for errors and potential bugs. Identify syntax issues, logical errors, and performance inefficiencies. 
-        Provide a list of errors with explanations and suggest fixes. Give headings in bold text. If there are no errors, mention that there are no errors.
-        Code: {code_input}
-        
-        Make the heading as *Explanation of Code*
-        Explain the following code in simple terms. Break it down step by step, describing what each function, loop, and condition does.
-        
-        Make the heading as *Optimizing Code*
-        Optimize the following code to improve time and space efficiency.
-        
-        Make the heading as *Detect & Adapt Language*
-        Detect the programming language and provide equivalent implementations in other languages.
-        
-        Make the heading as *Refactoring the Code*
-        Refactor the following code to enhance readability, maintainability, and structure.
-        """
-        output = query_gemini(prompt)
-        results.append(("Complete Analysis", output))
+        # Default analysis - only run if there's code input
+        if code_input:
+            prompt = f"""
+            Make the heading as *Finding & Fixing Bugs*
+            Analyze the following code for errors and potential bugs. Identify syntax issues, logical errors, and performance inefficiencies. 
+            Provide a list of errors with explanations and suggest fixes. Give headings in bold text. If there are no errors, mention that there are no errors.
+            Code: {code_input}
+            
+            Make the heading as *Explanation of Code*
+            Explain the following code in simple terms. Break it down step by step, describing what each function, loop, and condition does.
+            
+            Make the heading as *Optimizing Code*
+            Optimize the following code to improve time and space efficiency.
+            
+            Make the heading as *Detect & Adapt Language*
+            Detect the programming language and provide equivalent implementations in other languages.
+            
+            Make the heading as *Refactoring the Code*
+            Refactor the following code to enhance readability, maintainability, and structure.
+            """
+            output = query_gemini(prompt)
+            results.append(("Complete Analysis", output))
     else:
         for feature in features_selected:
             if feature == "📸 Convert Handwritten Code" and uploaded_file:
-                image1 = Image.open(uploaded_file)
-                st.image(image1, caption="Uploaded Image", use_column_width=True)
-                prompt = "Analyze this handwritten code image and convert it to digital code. Provide explanation and fix any errors."
-                output = reply("", image1, prompt)
-                results.append((feature, output))
+                try:
+                    # Display the uploaded image in a smaller, contained frame
+                    image1 = Image.open(uploaded_file)
+                    
+                    # Create columns to control image size and layout
+                    col1, col2, col3 = st.columns([1, 2, 1])
+                    with col2:
+                        st.image(image1, caption="Uploaded Handwritten Code", width=400)
+                    
+                    # Process the image
+                    prompt = "Analyze this handwritten code image and convert it to digital code. Provide explanation and fix any errors."
+                    output = reply("", image1, prompt)  # Make sure this function exists and works
+                    results.append((feature, output))
+                except Exception as e:
+                    st.error(f"Error processing image: {str(e)}")
+                    results.append((feature, f"Error processing image: {str(e)}"))
             
-            elif feature == "🐛 Find & Fix Bugs":
+            elif feature == "📸 Convert Handwritten Code" and not uploaded_file:
+                # Handle case where handwritten conversion is selected but no file uploaded
+                st.warning("Please upload an image for handwritten code conversion.")
+                results.append((feature, "No image uploaded for handwritten code conversion."))
+            
+            elif feature == "🐛 Find & Fix Bugs" and code_input:
                 prompt = f"""*Finding & Fixing Bugs*
                 
                 Analyze the following code for errors and potential bugs. Identify syntax issues, logical errors, and performance inefficiencies.
@@ -2123,7 +2139,7 @@ def process_code(code_input, features_selected, uploaded_file=None):
                 output = query_gemini(prompt)
                 results.append((feature, output))
             
-            elif feature == "📚 Explain Code":
+            elif feature == "📚 Explain Code" and code_input:
                 prompt = f"""*Code Explanation*
                 
                 Explain the following code in simple terms:
@@ -2137,7 +2153,7 @@ def process_code(code_input, features_selected, uploaded_file=None):
                 output = query_gemini(prompt)
                 results.append((feature, output))
             
-            elif feature == "⚡ Optimize Code":
+            elif feature == "⚡ Optimize Code" and code_input:
                 prompt = f"""*Code Optimization*
                 
                 Optimize the following code:
@@ -2152,7 +2168,7 @@ def process_code(code_input, features_selected, uploaded_file=None):
                 output = query_gemini(prompt)
                 results.append((feature, output))
             
-            elif feature == "🌍 Detect & Adapt Language":
+            elif feature == "🌍 Detect & Adapt Language" and code_input:
                 prompt = f"""*Language Detection & Adaptation*
                 
                 Detect the programming language and provide equivalent implementations java,c,c++,c#,java script,python,go,rust,typescript,php,swift,kotlin:
@@ -2165,7 +2181,7 @@ def process_code(code_input, features_selected, uploaded_file=None):
                 output = query_gemini(prompt)
                 results.append((feature, output))
             
-            elif feature == "🔄 Refactor Code":
+            elif feature == "🔄 Refactor Code" and code_input:
                 prompt = f"""*Code Refactoring*
                 
                 Refactor the following code:
@@ -2178,39 +2194,33 @@ def process_code(code_input, features_selected, uploaded_file=None):
                 """
                 output = query_gemini(prompt)
                 results.append((feature, output))
-    
-    st.markdown("## -- Output -- ")
-    # Display results
-    for feature, output in results:
-        st.markdown(f"### {feature}")
-        with st.container():
-            st.markdown(output)
-            st.markdown("---")
-    
-    # Save to history if user is logged in
-    if st.session_state.authenticated and results:
-        combined_output = "\n\n".join([f"{feature}:\n{output}" for feature, output in results])
-        save_chat_history(st.session_state.user_id, code_input, 
-                         [f[0] for f in results], combined_output)
-        st.success("💾 Analysis saved to your history!")
-
             
+            # Handle cases where code input is required but not provided
+            elif feature != "📸 Convert Handwritten Code" and not code_input:
+                st.warning(f"Please provide code input for {feature}")
+                results.append((feature, f"No code input provided for {feature}"))
+    
+    # Only display results if there are any
+    if results:
+        st.markdown("## -- Output -- ")
+        # Display results
+        for feature, output in results:
+            st.markdown(f"### {feature}")
+            with st.container():
+                st.markdown(output)
+                st.markdown("---")
+        
+        # Save to history if user is logged in
+        if st.session_state.authenticated and results:
+            combined_output = "\n\n".join([f"{feature}:\n{output}" for feature, output in results])
+            save_chat_history(st.session_state.user_id, code_input, 
+                             [f[0] for f in results], combined_output)
+            st.success("💾 Analysis saved to your history!")
+    else:
+        st.info("No output generated. Please check your inputs and selected features.")
 
 
-
-    if st.session_state.authenticated and results:
-        combined_output = "\n\n".join([f"{feature}:\n{output}" for feature, output in results])
-        save_chat_history(
-            st.session_state.user_id,
-            code_input,
-            [f[0] for f in results],
-            combined_output
-        )
-
-
-
-
-# Main application
+# Updated main application
 def main_page():
     # Round logo + header
     st.markdown("""
@@ -2260,8 +2270,13 @@ def main_page():
 
     uploaded_file = None
     if convert_handwritten:
-        features_selected.append("📸 Convert Handwritten")
+        features_selected.append("📸 Convert Handwritten Code")  # Fixed: Use consistent name
         uploaded_file = st.file_uploader("📸 Upload Handwritten Code Image", type=["png", "jpg", "jpeg"])
+        
+        # Show file upload status without displaying the image
+        if uploaded_file is not None:
+            st.success(f"✅ Image uploaded successfully: {uploaded_file.name}")
+            st.info("Click 'Process Selected Features' to analyze the handwritten code.")
 
     # Action Buttons
     st.markdown("### 🎛 Quick Actions")
@@ -2273,19 +2288,22 @@ def main_page():
     with col3:
         clear_all = st.button("🧹 Clear All")
 
-    # Button Actions - now outside columns
+    # Button Actions
     if analyze_all:
         if code_input or uploaded_file:
             with st.spinner("🤖 CodeGPT is analyzing your code..."):
                 all_features = ["🐛 Find & Fix Bugs", "📚 Explain Code", "⚡ Optimize Code",
                                 "🌍 Detect & Adapt Language", "🔄 Refactor Code"]
+                # Add handwritten conversion if image is uploaded
+                if uploaded_file:
+                    all_features.append("📸 Convert Handwritten Code")
                 process_code(code_input, all_features, uploaded_file)
         else:
             st.warning("Please provide code input or upload an image!")
 
     if process_selected:
         if features_selected and (code_input or uploaded_file):
-            with st.spinner("🤖 COdeGPT is processing..."):
+            with st.spinner("🤖 CodeGPT is processing..."):
                 process_code(code_input, features_selected, uploaded_file)
         elif not features_selected:
             st.warning("Please select at least one feature!")
