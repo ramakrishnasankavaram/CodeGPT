@@ -43,6 +43,8 @@ CodeGPT/
 └── README.md          # Project documentation
 ```
 
+## Our Homepage Demo
+![CodeGPT Screenshot](demohomepage.png)
 
 
 ## 🌐 Deployment
