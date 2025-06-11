@@ -133,7 +133,7 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 For questions or suggestions, feel free to reach out
 
-- Email : [ramakrishnasankavaram436@gmail.com](ramakrishnasankavaram436@gmail.com)
+- Email : ramakrishnasankavaram436@gmail.com
 - Linkedin : [Sankavaram Rama Krishna](https://www.linkedin.com/in/sankavaram-rama-krishna-bb93aa254/)
 - GitHub : [ramakrishnasankavaram](https://github.com/ramakrishnasankavaram)
 
