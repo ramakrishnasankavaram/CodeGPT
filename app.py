@@ -19,10 +19,10 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=GOOGLE_API_KEY)
 
 # Email configuration from environment variables
-SMTP_SERVER = os.getenv("SMTP_SERVER", "smtp.gmail.com")
-SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
-EMAIL_USER = os.getenv("EMAIL_USER")
-EMAIL_PASS = os.getenv("EMAIL_PASS")
+SMTP_SERVER = st.secrets["SMTP_SERVER"]
+SMTP_PORT = int(st.secrets["SMTP_PORT"])
+EMAIL_USER = st.secrets["EMAIL_USER"]
+EMAIL_PASS = st.secrets["EMAIL_PASS"]
 
 # Database setup
 def init_database():
