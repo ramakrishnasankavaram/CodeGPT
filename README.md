@@ -59,7 +59,7 @@ Follow the steps below to set up and run CodeGPT locally:
 
 **1️⃣ Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/codegpt.git
+   git clone https://github.com/ramakrishnasankavaram/codegpt.git
    cd codegpt
    ```
 
