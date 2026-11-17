@@ -2052,12 +2052,12 @@ def about_page():
     st.markdown('</div>', unsafe_allow_html=True)  # Close main wrapper
 # AI functions
 def query_gemini(prompt):
-    model = genai.GenerativeModel("gemini-2.5-flash")
+    model = genai.GenerativeModel("gemini-3.6-flash")
     response = model.generate_content(prompt)
     return response.text
 
 def reply(input_text, image, prompt):
-    model1 = genai.GenerativeModel("gemini-2.5-flash")
+    model1 = genai.GenerativeModel("gemini-3.6-flash")
     response = model1.generate_content([input_text, image, prompt])
     return response.text
 
