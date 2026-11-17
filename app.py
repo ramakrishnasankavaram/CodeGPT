@@ -2052,7 +2052,7 @@ def about_page():
     st.markdown('</div>', unsafe_allow_html=True)  # Close main wrapper
 # AI functions
 def query_gemini(prompt):
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    model = genai.GenerativeModel("gemini-3.7-flash")
     response = model.generate_content(prompt)
     return response.text
 
