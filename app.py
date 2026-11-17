@@ -2057,7 +2057,7 @@ def query_gemini(prompt):
     return response.text
 
 def reply(input_text, image, prompt):
-    model1 = genai.GenerativeModel("gemini-1.5-flash")
+    model1 = genai.GenerativeModel("gemini-3.7-flash")
     response = model1.generate_content([input_text, image, prompt])
     return response.text
 
