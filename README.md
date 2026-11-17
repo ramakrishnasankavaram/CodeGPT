@@ -27,7 +27,7 @@ Experience CodeGPT in action 👉 [CodeGPT](https://codegpt31.streamlit.app/)
 
 - **Frontend & Backend**: Streamlit (Python)
 - **Database**: sqlite3
-- **AI Model**: Google Gemini 1.5 Flash
+- **AI Model**: Google Gemini Flash
 - **Deployment**: Streamlit Cloud
 
   
