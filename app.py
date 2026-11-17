@@ -2341,7 +2341,7 @@ def show_footer():
     st.markdown("---")
     st.markdown("""
     <div style='text-align: center; padding: 20px; color: #666;'>
-        <h4>🚀 TEAM ARJUNA — Innovating at the Speed of Thought</h4>
+        <h4>🚀 CodeGPT — Innovating at the Speed of Thought</h4>
         <p>🧠 Powered by <strong>Google Gemini AI</strong> | 🔧 Built with <strong>Streamlit</strong></p>
         <p style='font-size: 0.8em; margin-top: 15px;'>© 2025 CodeGPT. All rights reserved.</p>
     </div>
